@@ -38,6 +38,9 @@ class SearchResultsViewController: UIViewController, UITableViewDelegate, UITabl
     
     @IBAction func sortSegmentAction(_ sender: UISegmentedControl) {
 
+        print("Changed \(sortSegment.selectedSegmentIndex)")
+        
+        sortData(index: sortSegment.selectedSegmentIndex)
         
     }
     
