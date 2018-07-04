@@ -30,6 +30,19 @@ class SearchResultsViewController: UIViewController, UITableViewDelegate, UITabl
     
     func sortData(index: Int) {
 
+        switch index {
+        case 0:
+            places = places.sorted(by: {
+                $0.name < $1.name
+            })
+        case 1:
+            places = places.sorted(by: {
+                Int($0.rating!) > Int($1.rating!)
+            })
+        default:
+            break;
+        }
+        tableView.reloadData()
     }
     
     
