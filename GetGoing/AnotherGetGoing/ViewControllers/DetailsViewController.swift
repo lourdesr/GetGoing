@@ -34,12 +34,18 @@ class DetailsViewController: UIViewController, MKMapViewDelegate {
             } else {
                 
             }
-        }) 
+        })
 
         
         setMapViewCoordinate()
     }
-
+    
+    func showDetails(_ result: PlaceOfInterest!){
+        addressLabel.text = place.formattedAddress
+        phoneLabel.text = result.phone_number!
+        websiteLabel.text = result.website!
+        
+    }
 
     func setMapViewCoordinate(){
         
