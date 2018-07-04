@@ -22,7 +22,19 @@ class DetailsViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        GooglePlacesAPI.detailSearch(placeId: place.placeId!, completionHandler: {(status, json) in
+            if let jsonObj = json {
+                let detailPlaces = APIParser.parseDetailAPIResponse(json: jsonObj)
+                
+                DispatchQueue.main.async{
+                    self.showDetails(detailPlaces)
+                }
+                
+                
+            } else {
+                
+            }
+        }) 
 
         
         setMapViewCoordinate()
