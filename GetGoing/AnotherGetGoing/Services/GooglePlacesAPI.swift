@@ -11,7 +11,7 @@ import CoreLocation
 
 class GooglePlacesAPI {
     
-    class func textSearch(query: String, completionHandler: @escaping(_ statusCode: Int, _ json: [String: Any]?) -> Void){
+    class func textSearch(query: String, rank: String, radius: String, isopen: Bool, completionHandler: @escaping(_ statusCode: Int, _ json: [String: Any]?) -> Void){
         var urlComponents = URLComponents()
         urlComponents.scheme = Constants.scheme
         urlComponents.host = Constants.host
@@ -21,6 +21,13 @@ class GooglePlacesAPI {
             URLQueryItem(name: "query", value: query),
             URLQueryItem(name: "key", value: Constants.apiKey)
         ]
+        
+        if rank == "Distance" {
+            urlComponents.queryItems?.append(URLQueryItem(name: "radius", value: radius))
+        }
+        if isopen {
+            urlComponents.queryItems?.append(URLQueryItem(name: "opennow", value: "true"))
+        }
         
         NetworkingLayer.getRequest(with: urlComponents) { (statusCode, data) in
             if let jsonData = data,
