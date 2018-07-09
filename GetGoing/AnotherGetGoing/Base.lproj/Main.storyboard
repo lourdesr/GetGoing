@@ -31,8 +31,8 @@
                                         <rect key="frame" x="0.0" y="166" width="375" height="34"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HqW-jg-WQg">
-                                                <rect key="frame" x="0.0" y="4.5" width="79" height="25"/>
-                                                <state key="normal" title="Button" image="filters"/>
+                                                <rect key="frame" x="0.0" y="5" width="79" height="24"/>
+                                                <state key="normal" title="Button" image="filtersDefault"/>
                                                 <connections>
                                                     <action selector="presentFilters:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pG5-tt-S2r"/>
                                                 </connections>
@@ -78,6 +78,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="hcp-xc-x35"/>
                     <connections>
+                        <outlet property="filterBtn" destination="HqW-jg-WQg" id="lDL-rN-3Ca"/>
                         <outlet property="searchParameterTextField" destination="uLj-6q-Mcv" id="I8s-aa-egM"/>
                         <outlet property="segmentedControl" destination="2o4-zt-xfz" id="Zg0-99-sUN"/>
                     </connections>
@@ -103,12 +104,16 @@
                                                 <action selector="cancelButtonAction:" destination="1Hf-sK-L9a" id="w2Z-bn-o5I"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="Apply" id="0Jf-LC-6XS"/>
+                                        <barButtonItem key="rightBarButtonItem" title="Apply" id="0Jf-LC-6XS">
+                                            <connections>
+                                                <action selector="applyButtonAction:" destination="1Hf-sK-L9a" id="NwY-cG-jJ6"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="tUZ-gw-oBJ">
-                                <rect key="frame" x="16" y="80" width="343" height="107"/>
+                                <rect key="frame" x="16" y="80" width="343" height="135.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HOO-xV-fJf">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="31"/>
@@ -127,18 +132,25 @@
                                             </switch>
                                         </subviews>
                                     </stackView>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8uX-GH-4Wg">
-                                        <rect key="frame" x="0.0" y="39" width="343" height="30"/>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" minValue="1" maxValue="20" translatesAutoresizingMaskIntoConstraints="NO" id="5LA-eU-5Nr">
-                                        <rect key="frame" x="-2" y="77" width="347" height="31"/>
+                                        <rect key="frame" x="-2" y="39" width="347" height="31"/>
                                         <connections>
                                             <action selector="radiusChange:" destination="1Hf-sK-L9a" eventType="valueChanged" id="Tmt-Lw-lFD"/>
                                         </connections>
                                     </slider>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E7R-Pz-dwC">
+                                        <rect key="frame" x="0.0" y="77" width="343" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="97u-qG-T4K">
+                                        <rect key="frame" x="0.0" y="105.5" width="343" height="30"/>
+                                        <state key="normal" title="RESET"/>
+                                        <connections>
+                                            <action selector="resetButtonAction:" destination="1Hf-sK-L9a" eventType="touchUpInside" id="NGx-N9-Tnm"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </stackView>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R9e-2s-xye">
@@ -161,7 +173,7 @@
                     </view>
                     <connections>
                         <outlet property="openNowSwitch" destination="Q7t-Hm-Msi" id="bQA-jT-Kme"/>
-                        <outlet property="textFieldFilter" destination="8uX-GH-4Wg" id="jE4-j9-pXu"/>
+                        <outlet property="pickerView" destination="R9e-2s-xye" id="j9Q-4l-afL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x0h-eL-p6C" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -280,7 +292,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="filters" width="25" height="25"/>
+        <image name="filtersDefault" width="25" height="24"/>
         <image name="shutterstock" width="300" height="150"/>
     </resources>
 </document>
