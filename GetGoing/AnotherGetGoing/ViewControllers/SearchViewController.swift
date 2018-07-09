@@ -14,15 +14,27 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var searchParameterTextField: UITextField!
     
+    @IBOutlet weak var filterBtn: UIButton!
     var searchParam: String?
     
     //MARK: - View Controller LifeCycle Views
     
+    var radius: String!
+    var rankBy: String!
+    var isOpen: Bool!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.initValues()
         searchParameterTextField.delegate = self
     }
     
+    func initValues(){
+        radius = "9999"
+        rankBy = "Prominence"
+        isOpen = false
+    }
     
     // MARK: - Button Actions
     @IBAction func searchButtonAction(_ sender: UIButton) {
@@ -31,7 +43,7 @@ class SearchViewController: UIViewController {
         switch segmentedControl.selectedSegmentIndex {
         case 0:
             if let inputValue = searchParam {
-                GooglePlacesAPI.textSearch(query: inputValue, completionHandler: {(status, json) in
+                GooglePlacesAPI.textSearch(query: inputValue, rank: rankBy, radius: radius, isopen: isOpen, completionHandler: {(status, json) in
                     if let jsonObj = json {
                         let places = APIParser.parseAPIResponse(json: jsonObj)
                         //update UI on the main thread!
@@ -113,7 +125,7 @@ class SearchViewController: UIViewController {
     @IBAction func presentFilters(_ sender: UIButton){
         
         let filtersViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FilterViewController") as! FilterViewController
-        
+        filtersViewController.delegate = self
         
         present(filtersViewController, animated: true, completion: nil)
         
@@ -161,13 +173,29 @@ extension SearchViewController: UITextFieldDelegate {
 
 //MARK: - Location Service Delegate
 
-extension SearchViewController: LocationServiceDelegate {
+extension SearchViewController: LocationServiceDelegate,FilterViewControllerDelegate {
+    func resetFilterState(filterState: Bool) {
+        filterBtn.setImage(UIImage(named: "filtersDefault"),for: [])
+    }
+    
     func tracingLocation(_ currentLocation: CLLocation) {
         print("\(currentLocation.coordinate.latitude) \(currentLocation.coordinate.longitude)")
     }
     
     func tracingLocationDidFailWithError(_ error: Error) {
         
+    }
+    
+    func getFilterParams(rankBy: String,distance: String, openNow: Bool) {
+        
+        self.radius = distance
+        self.rankBy = rankBy
+        self.isOpen = openNow
+        
+    }
+    
+    func applyFilterState(filterState: Bool){
+        filterBtn.setImage(UIImage(named: "filters"),for: [])
     }
 }
 

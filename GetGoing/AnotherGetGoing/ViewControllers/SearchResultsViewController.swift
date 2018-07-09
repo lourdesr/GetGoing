@@ -76,9 +76,11 @@ class SearchResultsViewController: UIViewController, UITableViewDelegate, UITabl
         cell.addressLabel.text = places[indexPath.row].formattedAddress
 
         var rating = ""
-        for i in 1...Int(places[indexPath.row].rating!){
-            rating = rating + "*"
-        }
+//        for i in 1...Int(places[indexPath.row].rating!){
+//            rating = rating + "*"
+//        }
+//
+//        cell.ratingLabel.text = "Rating: "+rating
         
         if let imageUrl  = places[indexPath.row].iconUrl, let url = URL(string: imageUrl),
             let dataContents = try? Data(contentsOf: url), let imageSrc = UIImage(data: dataContents){
